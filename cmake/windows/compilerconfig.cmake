@@ -28,7 +28,6 @@ endif()
 
 add_compile_options(
   /W3
-  /utf-8
   /Brepro
   /permissive-
   "$<$<COMPILE_LANG_AND_ID:C,MSVC>:${_obs_msvc_c_options}>"
@@ -40,14 +39,22 @@ add_compile_options(
   $<$<NOT:$<CONFIG:Debug>>:/Oi>
 )
 
+if(MSVC)
+  add_compile_options(
+    /utf-8  # 使用UTF-8作为源代码和执行的字符集
+  )
+endif()
+
 add_compile_definitions(
   UNICODE
   _UNICODE
   _CRT_SECURE_NO_WARNINGS
   _CRT_NONSTDC_NO_WARNINGS
+  _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING
   $<$<CONFIG:DEBUG>:DEBUG>
   $<$<CONFIG:DEBUG>:_DEBUG>
 )
+
 
 add_link_options(
   $<$<NOT:$<CONFIG:Debug>>:/OPT:REF>

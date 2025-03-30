@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBS Zoom Filter - Support the Developer</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        
+        h1 {
+            color: #0a4b78;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.2em;
+        }
+        
+        .features {
+            margin: 30px 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .feature-item {
+            width: 48%;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+            border-radius: 6px;
+            padding: 15px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        
+        .feature-item h3 {
+            color: #0a4b78;
+            margin-top: 0;
+        }
+        
+        .donate-section {
+            text-align: center;
+            margin: 40px 0;
+            padding: 20px;
+            background-color: #f0f8ff;
+            border-radius: 8px;
+        }
+        
+        .qr-codes {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        
+        .qr-item {
+            text-align: center;
+        }
+        
+        .qr-item img {
+            max-width: 200px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .qr-item img:hover {
+            transform: scale(1.05);
+        }
+        
+        .qr-item p {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #777;
+            font-size: 0.9em;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        
+        .thank-you {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #f5fffa;
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .language-switch {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+        
+        .language-switch a {
+            display: inline-block;
+            padding: 5px 10px;
+            margin-left: 5px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #333;
+            transition: background-color 0.2s;
+        }
+        
+        .language-switch a:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="language-switch">
+            <a href="donate.html">中文</a>
+            <a href="donate-en.html" style="background-color: #e0e0e0;">English</a>
+        </div>
+        
+        <header>
+            <h1>OBS Zoom Filter Plugin</h1>
+            <p class="subtitle">Simple and convenient camera zoom control for your OBS streams and recordings</p>
+        </header>
+        
+        <div class="features">
+            <div class="feature-item">
+                <h3>Convenient Zoom Control</h3>
+                <p>Quickly zoom in and out of your scene using hotkeys with smooth transitions for a professional streaming experience.</p>
+            </div>
+            
+            <div class="feature-item">
+                <h3>Customizable Zoom Steps</h3>
+                <p>Customize single-click and continuous zoom speeds (up to 5.0x) according to your needs for precise zoom control.</p>
+            </div>
+            
+            <div class="feature-item">
+                <h3>Smooth Transition Animation</h3>
+                <p>Three smooth transition modes (linear, exponential, logarithmic) with start speed, deceleration and overshoot controls to create professional camera effects.</p>
+            </div>
+            
+            <div class="feature-item">
+                <h3>Mouse Tracking Smoothness</h3>
+                <p>Configure mouse tracking smoothness to reduce jitter and provide stable, fluid camera movements when following mouse position.</p>
+            </div>
+            
+            <div class="feature-item">
+                <h3>Auto Reset Function</h3>
+                <p>Automatically revert to the original view size after a specified time, no manual operation needed, making your stream more comfortable.</p>
+            </div>
+            
+            <div class="feature-item">
+                <h3>Advanced Animation Effects</h3>
+                <p>Support for elastic overshoot effects that create a subtle bounce feeling during zoom transitions, adding dynamic visual interest to your streams.</p>
+            </div>
+        </div>
+        
+        <div class="donate-section">
+            <h2>Support the Developer</h2>
+            <p>If you find this plugin helpful, please consider supporting the developer. Your encouragement is our motivation to keep improving!</p>
+            
+            <div class="qr-codes">
+                <div class="qr-item">
+                    <img src="./locale/wechat.png" alt="WeChat Pay">
+                    <p>WeChat Pay</p>
+                </div>
+                
+                <div class="qr-item">
+                    <img src="./locale/alipay.png" alt="Alipay">
+                    <p>Alipay</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="thank-you">
+            <h3>Thank You for Your Support!</h3>
+            <p>Thank you for supporting the OBS Zoom Filter Plugin. Your donations will help us:</p>
+            <ul>
+                <li>Continuously improve existing features</li>
+                <li>Fix known issues and bugs</li>
+                <li>Develop more useful OBS plugins</li>
+                <li>Provide better user support</li>
+            </ul>
+        </div>
+        
+        <footer>
+            <p>OBS Zoom Filter Plugin &copy; 2025 All Rights Reserved</p>
+            <p>Contact us: <a href="mailto:qqkk908572038@outlook.com">qqkk908572038@outlook.com</a></p>
+        </footer>
+    </div>
+</body>
+</html>

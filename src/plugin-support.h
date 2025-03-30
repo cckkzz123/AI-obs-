@@ -1,6 +1,6 @@
 /*
-Plugin Name
-Copyright (C) <Year> <Developer> <Email Address>
+OBS Zoom Filter
+Copyright (C) 2025 Chen ZhaoZheng <czz003003@gmail.com>
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,6 +18,15 @@ with this program. If not, see <https://www.gnu.org/licenses/>
 
 #pragma once
 
+#ifdef _WIN32
+#ifndef UNICODE 
+#define UNICODE
+#endif
+#ifndef _UNICODE
+#define _UNICODE
+#endif
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -26,6 +35,11 @@ extern "C" {
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
+
+#ifdef _WIN32
+#include <windows.h>
+#include <tchar.h>
+#endif
 
 extern const char *PLUGIN_NAME;
 extern const char *PLUGIN_VERSION;

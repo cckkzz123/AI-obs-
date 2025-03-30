@@ -1,6 +1,6 @@
 /*
 OBS Zoom Filter
-Copyright (C) 2025 Your Name <your.email@example.com>
+Copyright (C) 2025 Chen ZhaoZheng <czz003003@gmail.com>
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

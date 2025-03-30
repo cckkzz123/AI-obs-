@@ -33,13 +33,13 @@
     },
     "platformConfig": {
         "macos": {
-            "bundleId": "com.example.obs-zoom-filter"
+            "bundleId": "com.chenzhaozheng.obs-zoom-filter"
         }
     },
     "name": "obs-zoom-filter",
     "displayName": "OBS Zoom Filter",
     "version": "1.0.0",
-    "author": "Your Name",
-    "website": "https://github.com/yourusername/obs-zoom-filter",
-    "email": "your.email@example.com"
+    "author": "Chen ZhaoZheng (Individual Developer)",
+    "website": "https://github.com/chenzhaozheng/obs-zoom-filter",
+    "email": "czz003003@gmail.com"
 }

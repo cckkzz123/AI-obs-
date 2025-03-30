@@ -1,6 +1,6 @@
 /*
-Plugin Name
-Copyright (C) <Year> <Developer> <Email Address>
+OBS Zoom Filter
+Copyright (C) 2025 Chen ZhaoZheng <czz003003@gmail.com>
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,22 +18,54 @@ with this program. If not, see <https://www.gnu.org/licenses/>
 
 #include <plugin-support.h>
 
+#ifdef _WIN32
+#include <windows.h>
+
+static wchar_t *utf8_to_wchar(const char *str)
+{
+    int len = MultiByteToWideChar(CP_UTF8, 0, str, -1, NULL, 0);
+    wchar_t *wstr = malloc(len * sizeof(wchar_t));
+    MultiByteToWideChar(CP_UTF8, 0, str, -1, wstr, len);
+    return wstr;
+}
+
+static char *wchar_to_utf8(const wchar_t *wstr)
+{
+    int len = WideCharToMultiByte(CP_UTF8, 0, wstr, -1, NULL, 0, NULL, NULL);
+    char *str = malloc(len);
+    WideCharToMultiByte(CP_UTF8, 0, wstr, -1, str, len, NULL, NULL);
+    return str;
+}
+#endif
+
 const char *PLUGIN_NAME = "@CMAKE_PROJECT_NAME@";
 const char *PLUGIN_VERSION = "@CMAKE_PROJECT_VERSION@";
 
 void obs_log(int log_level, const char *format, ...)
 {
-	size_t length = 4 + strlen(PLUGIN_NAME) + strlen(format);
+#ifdef _WIN32
+    wchar_t *w_plugin_name = utf8_to_wchar(PLUGIN_NAME);
+    wchar_t *w_format = utf8_to_wchar(format);
+    
+    size_t length = 4 + wcslen(w_plugin_name) + wcslen(w_format);
+    wchar_t *w_template = malloc(length * sizeof(wchar_t) + sizeof(wchar_t));
+    
+    _snwprintf(w_template, length, L"[%ls] %ls", w_plugin_name, w_format);
+    char *template = wchar_to_utf8(w_template);
+    
+    free(w_plugin_name);
+    free(w_format);
+    free(w_template);
+#else
+    size_t length = 4 + strlen(PLUGIN_NAME) + strlen(format);
+    char *template = malloc(length + 1);
+    snprintf(template, length + 1, "[%s] %s", PLUGIN_NAME, format);
+#endif
 
-	char *template = malloc(length + 1);
+    va_list(args);
+    va_start(args, format);
+    blogva(log_level, template, args);
+    va_end(args);
 
-	snprintf(template, length, "[%s] %s", PLUGIN_NAME, format);
-
-	va_list(args);
-
-	va_start(args, format);
-	blogva(log_level, template, args);
-	va_end(args);
-
-	free(template);
+    free(template);
 }

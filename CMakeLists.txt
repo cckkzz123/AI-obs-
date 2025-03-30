@@ -38,6 +38,10 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     src/plugin-main.c
     src/zoom-filter.c
     src/zoom-filter-ui.c
+    src/url-handler.c
+    src/zoom-rendering.c
+    src/zoom-smoothing.c
+    src/zoom-tracking.c
 )
 
 set_target_properties_plugin(${CMAKE_PROJECT_NAME} PROPERTIES OUTPUT_NAME ${_name})
