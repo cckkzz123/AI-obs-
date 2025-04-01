@@ -108,6 +108,7 @@ static obs_properties_t *add_time_control_group(obs_properties_t *props)
 
     return time_group;
 }
+<<<<<<< HEAD
 
 static obs_properties_t *add_support_group(obs_properties_t *props)
 {
@@ -123,6 +124,8 @@ static obs_properties_t *add_support_group(obs_properties_t *props)
 
     return support_group;
 }
+=======
+>>>>>>> 48bf4d025458e267826309d3286d5f08ba700225
 
 obs_properties_t *zoom_filter_get_properties(void *data)
 {
@@ -175,19 +178,25 @@ obs_properties_t *zoom_filter_get_properties(void *data)
         obs_module_text("TimeControlSettings"),
         OBS_GROUP_NORMAL, time_group);
 
+<<<<<<< HEAD
     // 5. 支持开发者组
     obs_properties_t *support_group = add_support_group(props);
     obs_properties_add_group(props, "support_settings", 
         obs_module_text("SupportDeveloper"),
         OBS_GROUP_NORMAL, support_group);
 
+=======
+>>>>>>> 48bf4d025458e267826309d3286d5f08ba700225
     return props;
 }
 
 void zoom_filter_get_defaults(obs_data_t *settings)
 {
     obs_data_set_default_double(settings, S_SCALE_FACTOR, 1.0);
+<<<<<<< HEAD
     obs_data_set_default_int(settings, S_TRACKING_MODE, TRACKING_MODE_REALTIME);
+=======
+>>>>>>> 48bf4d025458e267826309d3286d5f08ba700225
     obs_data_set_default_double(settings, S_SINGLE_STEP, 0.1);
     obs_data_set_default_double(settings, S_CONT_STEP, 0.01);
     obs_data_set_default_bool(settings, S_SMOOTH_ENABLED, true);
@@ -196,6 +205,7 @@ void zoom_filter_get_defaults(obs_data_t *settings)
     obs_data_set_default_int(settings, S_RESPONSE_TIME, 50);
     obs_data_set_default_int(settings, S_ANIM_TIME, 400);
     obs_data_set_default_int(settings, S_AUTO_RESET, 0);
+<<<<<<< HEAD
     
     // 新增平滑控制参数的默认值
     obs_data_set_default_double(settings, S_START_SPEED, 1.0);
@@ -205,4 +215,6 @@ void zoom_filter_get_defaults(obs_data_t *settings)
     // 鼠标跟踪平滑度默认值
     obs_data_set_default_bool(settings, S_TRACKING_SMOOTH_ENABLED, true);
     obs_data_set_default_double(settings, S_TRACKING_SMOOTHNESS, 0.6);
+=======
+>>>>>>> 48bf4d025458e267826309d3286d5f08ba700225
 }

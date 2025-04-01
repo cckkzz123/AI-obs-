@@ -4,12 +4,59 @@
 #include "plugin-support.h"
 #include "zoom-filter.h"
 
+<<<<<<< HEAD
+=======
+#define S_SCALE_FACTOR "scale_factor"
+#define S_SINGLE_STEP "single_click_step"
+#define S_CONT_STEP "continuous_step"
+#define S_SMOOTH_ENABLED "smooth_enabled"
+#define S_SMOOTHNESS "smoothness"
+#define S_SMOOTH_MODE "smoothing_mode"
+#define S_RESPONSE_TIME "response_time"
+#define S_ANIM_TIME "animation_time"
+#define S_AUTO_RESET "auto_reset_time"
+
+>>>>>>> 48bf4d025458e267826309d3286d5f08ba700225
 static const char *zoom_filter_get_name(void *unused)
 {
     UNUSED_PARAMETER(unused);
     return obs_module_text("ZoomFilter");
 }
 
+<<<<<<< HEAD
+=======
+static float calculate_smooth_scale(struct zoom_filter *filter, uint64_t current_time)
+{
+    if (!filter->smooth_enabled || filter->animation_time == 0)
+        return filter->target_scale;
+
+    float t = (float)(current_time - filter->transition_start) / (float)filter->animation_time;
+    if (t >= 1.0f) {
+        filter->scale = filter->target_scale;
+        return filter->target_scale;
+    }
+
+    float start_scale = filter->scale;
+    float end_scale = filter->target_scale;
+    float diff = end_scale - start_scale;
+
+    // 防止震荡
+    if (fabsf(diff) < 0.001f)
+        return end_scale;
+
+    switch (filter->smoothing_mode) {
+    case SMOOTH_MODE_LINEAR:
+        return start_scale + diff * t;
+    case SMOOTH_MODE_EXPONENTIAL:
+        return start_scale + diff * (1.0f - expf(-t * (1.0f / filter->smoothness)));
+    case SMOOTH_MODE_LOGARITHMIC:
+        return start_scale + diff * (logf(1.0f + t * 9.0f) / logf(10.0f));
+    default:
+        return filter->target_scale;
+    }
+}
+
+>>>>>>> 48bf4d025458e267826309d3286d5f08ba700225
 static void *zoom_filter_create(obs_data_t *settings, obs_source_t *source)
 {
     struct zoom_filter *filter = bzalloc(sizeof(struct zoom_filter));
@@ -78,7 +125,11 @@ static void zoom_filter_destroy(void *data)
 static void zoom_filter_update(void *data, obs_data_t *settings)
 {
     struct zoom_filter *filter = data;
+<<<<<<< HEAD
     float old_scale = filter->smoothing.current_scale;
+=======
+    float old_scale = filter->scale;
+>>>>>>> 48bf4d025458e267826309d3286d5f08ba700225
     
     // 更新跟踪模式和平滑度
     filter->tracking.mode = (int)obs_data_get_int(settings, S_TRACKING_MODE);
@@ -122,11 +173,25 @@ static void apply_zoom(struct zoom_filter *filter, float target)
     // 限制缩放值范围
     target = (float)fmax(fmin((double)target, 5.0), 1.0);
     
+<<<<<<< HEAD
     // 设置新的目标缩放值
     smoothing_set_target(&filter->smoothing, target, os_gettime_ns());
     
     // 保存到设置
     save_scale(filter, target);
+=======
+    if (filter->smooth_enabled) {
+        if (fabs(target - filter->target_scale) > 0.001f) {
+            filter->target_scale = target;
+            filter->transition_start = os_gettime_ns();
+            save_scale(filter, target);
+        }
+    } else {
+        filter->scale = target;
+        filter->target_scale = target;
+        save_scale(filter, target);
+    }
+>>>>>>> 48bf4d025458e267826309d3286d5f08ba700225
 }
 
 static void zoom_filter_video_render(void *data, gs_effect_t *effect)
@@ -140,6 +205,7 @@ static void zoom_filter_video_render(void *data, gs_effect_t *effect)
     }
 
     uint64_t current_time = os_gettime_ns();
+<<<<<<< HEAD
     
     // 更新跟踪模块
     uint32_t width = obs_source_get_width(target);
@@ -156,6 +222,9 @@ static void zoom_filter_video_render(void *data, gs_effect_t *effect)
     // 更新平滑模块
     float scale = smoothing_update(&filter->smoothing, current_time);
     
+=======
+
+>>>>>>> 48bf4d025458e267826309d3286d5f08ba700225
     // 处理长按缩放
     if (current_time - filter->last_zoom_time > filter->response_time) {
         if (filter->zoom_in_pressed) {
@@ -176,12 +245,41 @@ static void zoom_filter_video_render(void *data, gs_effect_t *effect)
         apply_zoom(filter, 1.0f);
         filter->last_zoom_time = current_time;
     }
+<<<<<<< HEAD
     
     // 执行渲染
     rendering_render(&filter->rendering, target, effect);
 }
 
 void zoom_in(void *data, obs_hotkey_id id, obs_hotkey_t *hotkey, bool pressed)
+=======
+
+    // 处理平滑过渡
+    if (filter->smooth_enabled && filter->transition_start > 0) {
+        filter->scale = calculate_smooth_scale(filter, current_time);
+    }
+
+    struct vec4 clear_color;
+    vec4_zero(&clear_color);
+    gs_clear(GS_CLEAR_COLOR, &clear_color, 0.0f, 0);
+    gs_ortho(0.0f, (float)width, 0.0f, (float)height, -100.0f, 100.0f);
+
+    float scale = filter->scale;
+    float half_w = width * 0.5f;
+    float half_h = height * 0.5f;
+
+    gs_matrix_push();
+    gs_matrix_translate3f(half_w, half_h, 0.0f);
+    gs_matrix_scale3f(scale, scale, 1.0f);
+    gs_matrix_translate3f(-half_w, -half_h, 0.0f);
+
+    obs_source_video_render(target);
+
+    gs_matrix_pop();
+}
+
+static void zoom_in(void *data, obs_hotkey_id id, obs_hotkey_t *hotkey, bool pressed)
+>>>>>>> 48bf4d025458e267826309d3286d5f08ba700225
 {
     UNUSED_PARAMETER(id);
     
@@ -192,7 +290,11 @@ void zoom_in(void *data, obs_hotkey_id id, obs_hotkey_t *hotkey, bool pressed)
     filter->zoom_in_key = hotkey;
     
     if (pressed) {
+<<<<<<< HEAD
         float target = filter->smoothing.target_scale + filter->single_click_step;
+=======
+        float target = filter->target_scale + filter->single_click_step;
+>>>>>>> 48bf4d025458e267826309d3286d5f08ba700225
         apply_zoom(filter, target);
         filter->last_zoom_time = os_gettime_ns();
     }
@@ -209,7 +311,11 @@ void zoom_out(void *data, obs_hotkey_id id, obs_hotkey_t *hotkey, bool pressed)
     filter->zoom_out_key = hotkey;
     
     if (pressed) {
+<<<<<<< HEAD
         float target = filter->smoothing.target_scale - filter->single_click_step;
+=======
+        float target = filter->target_scale - filter->single_click_step;
+>>>>>>> 48bf4d025458e267826309d3286d5f08ba700225
         apply_zoom(filter, target);
         filter->last_zoom_time = os_gettime_ns();
     }

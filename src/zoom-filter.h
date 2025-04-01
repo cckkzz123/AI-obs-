@@ -48,14 +48,27 @@ struct zoom_filter {
     obs_hotkey_t *zoom_in_key;
     obs_hotkey_t *zoom_out_key;
     uint64_t last_zoom_time;
+<<<<<<< HEAD
     
     // 缩放步长控制
+=======
+
+    // Zoom control parameters
+>>>>>>> 48bf4d025458e267826309d3286d5f08ba700225
     float single_click_step;  // 单击步长
     float continuous_step;    // 持续步长
     uint64_t response_time;   // 响应间隔(ns)
     uint64_t auto_reset_time; // 自动复位时间(ns)
 };
 
+<<<<<<< HEAD
+=======
+// Smoothing modes
+#define SMOOTH_MODE_LINEAR  0
+#define SMOOTH_MODE_EXPONENTIAL 1
+#define SMOOTH_MODE_LOGARITHMIC 2
+
+>>>>>>> 48bf4d025458e267826309d3286d5f08ba700225
 extern struct obs_source_info zoom_filter;
 
 void zoom_in(void *data, obs_hotkey_id id, obs_hotkey_t *hotkey, bool pressed);
